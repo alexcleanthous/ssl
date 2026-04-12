@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Short Story Long — Wireframe v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     WIREFRAME STYLES — STRUCTURAL ONLY
+     Brand colors, fonts, imagery TBD
+     ============================================ */
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --wire-bg: #FFFFFF;
+    --wire-surface: #F5F5F5;
+    --wire-surface-alt: #EBEBEB;
+    --wire-border: #D0D0D0;
+    --wire-text: #333333;
+    --wire-text-secondary: #777777;
+    --wire-accent: #888888;
+    --wire-placeholder: #C8C8C8;
+    --wire-dark: #2A2A2A;
+    --wire-dark-text: #FFFFFF;
+    --max-width: 1200px;
+    --section-pad: 80px 24px;
+    --section-pad-mobile: 56px 16px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--wire-text);
+    background: var(--wire-bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Wireframe annotation labels */
+  .wire-label {
+    display: inline-block;
+    background: #FF6B35;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 16px;
+  }
+
+  .wire-note {
+    font-size: 12px;
+    color: #FF6B35;
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  /* Placeholder boxes for images/media */
+  .placeholder {
+    background: var(--wire-surface-alt);
+    border: 2px dashed var(--wire-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wire-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .placeholder svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+    opacity: 0.4;
+  }
+
+  .placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    background: var(--wire-dark);
+    color: var(--wire-dark-text);
+    padding: 16px 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--wire-text);
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--wire-border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--wire-text); }
+
+
+  /* =============================
+     1. ANNOUNCEMENT BAR
+     ============================= */
+  .announcement-bar {
+    background: var(--wire-dark);
+    color: var(--wire-dark-text);
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .announcement-bar span {
+    opacity: 0.6;
+    margin: 0 8px;
+  }
+
+
+  /* =============================
+     2. NAVIGATION
+     ============================= */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    border-bottom: 1px solid var(--wire-surface);
+  }
+
+  .nav-logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--wire-text);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wire-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--wire-text); }
+
+  .nav-cart {
+    position: relative;
+  }
+
+  .nav-cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: var(--wire-dark);
+    color: white;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+
+  /* =============================
+     3. HERO
+     ============================= */
+  .hero {
+    padding: 64px 24px 80px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hero-content {
+    max-width: 540px;
+  }
+
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--wire-text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    color: var(--wire-text);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--wire-text-secondary);
+    line-height: 1.65;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+  }
+
+
+  /* =============================
+     4. UGC VIDEO SECTION
+     ============================= */
+  .ugc-section {
+    background: var(--wire-surface);
+    padding: var(--section-pad);
+  }
+
+  .ugc-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ugc-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .ugc-section .subtitle {
+    font-size: 16px;
+    color: var(--wire-text-secondary);
+  }
+
+  .ugc-scroll-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 0 24px 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ugc-scroll-track::-webkit-scrollbar { display: none; }
+
+  .ugc-video-card {
+    flex: 0 0 220px;
+    aspect-ratio: 9/16;
+    border-radius: 12px;
+    scroll-snap-align: start;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .ugc-video-card .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ugc-video-card .play-btn::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 14px;
+    border-color: transparent transparent transparent #333;
+    margin-left: 3px;
+  }
+
+  .ugc-video-card .ugc-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 14px 14px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    border-radius: 0 0 12px 12px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+
+  /* =============================
+     5. TRUST BAR
+     ============================= */
+  .trust-bar {
+    padding: 40px 24px;
+    border-bottom: 1px solid var(--wire-surface);
+  }
+
+  .trust-bar-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trust-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--wire-surface);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .trust-item h4 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .trust-item p {
+    font-size: 12px;
+    color: var(--wire-text-secondary);
+    max-width: 180px;
+  }
+
+
+  /* =============================
+     6. "THE MOMENT" SECTION
+     ============================= */
+  .the-moment {
+    padding: var(--section-pad);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .the-moment h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .the-moment p {
+    font-size: 17px;
+    color: var(--wire-text-secondary);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .the-moment .moment-quote {
+    font-size: 22px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--wire-text);
+    margin: 32px 0;
+    padding: 24px 0;
+    border-top: 1px solid var(--wire-surface);
+    border-bottom: 1px solid var(--wire-surface);
+    line-height: 1.5;
+  }
+
+
+  /* =============================
+     7. HOW IT WORKS
+     ============================= */
+  .how-it-works {
+    background: var(--wire-surface);
+    padding: var(--section-pad);
+  }
+
+  .how-it-works .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .how-it-works h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .steps-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .step-card {
+    text-align: center;
+  }
+
+  .step-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--wire-dark);
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .step-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .step-card p {
+    font-size: 14px;
+    color: var(--wire-text-secondary);
+    line-height: 1.6;
+  }
+
+
+  /* =============================
+     8. CURLY SECTION (HERO DIFFERENTIATOR)
+     ============================= */
+  .curly-section {
+    padding: var(--section-pad);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .curly-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+  }
+
+  .curly-content h2 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .curly-content .badge {
+    display: inline-block;
+    background: var(--wire-dark);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .curly-content p {
+    font-size: 16px;
+    color: var(--wire-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 480px;
+  }
+
+  .curly-content .btn-primary {
+    margin-top: 12px;
+  }
+
+
+  /* =============================
+     9. PRODUCT SHOWCASE
+     ============================= */
+  .products {
+    background: var(--wire-surface);
+    padding: var(--section-pad);
+  }
+
+  .products .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .products h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .products .subtitle {
+    font-size: 16px;
+    color: var(--wire-text-secondary);
+  }
+
+  .products-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--wire-surface-alt);
+    transition: box-shadow 0.2s;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+
+  .product-card-image {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .product-card-body {
+    padding: 24px;
+  }
+
+  .product-card-name {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--wire-text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .product-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .product-card .tagline {
+    font-size: 14px;
+    color: var(--wire-text-secondary);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .product-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .spec-tag {
+    background: var(--wire-surface);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--wire-text-secondary);
+  }
+
+  .product-card .price {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .product-card .price .from {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wire-text-secondary);
+  }
+
+  .product-card .btn-primary {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 14px;
+  }
+
+
+  /* =============================
+     10. THE MATHS
+     ============================= */
+  .the-maths {
+    padding: var(--section-pad);
+  }
+
+  .the-maths .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .the-maths h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .the-maths .subtitle {
+    font-size: 16px;
+    color: var(--wire-text-secondary);
+  }
+
+  .comparison-table {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--wire-surface-alt);
+  }
+
+  .comparison-col {
+    padding: 40px;
+  }
+
+  .comparison-col.salon {
+    background: var(--wire-surface);
+  }
+
+  .comparison-col.ssl {
+    background: white;
+    border-left: 1px solid var(--wire-surface-alt);
+  }
+
+  .comparison-col h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .comparison-col .comp-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--wire-surface-alt);
+    font-size: 14px;
+  }
+
+  .comparison-col .comp-line:last-of-type {
+    border-bottom: none;
+  }
+
+  .comparison-col .comp-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0 0;
+    margin-top: 16px;
+    border-top: 2px solid var(--wire-dark);
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .comparison-col.ssl .comp-total {
+    color: var(--wire-dark);
+  }
+
+  .savings-callout {
+    text-align: center;
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--wire-dark);
+    color: white;
+    border-radius: 8px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .savings-callout .amount {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .savings-callout p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+
+  /* =============================
+     11. FOUNDERS
+     ============================= */
+  .founders {
+    background: var(--wire-surface);
+    padding: var(--section-pad);
+  }
+
+  .founders .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .founders h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .founders .subtitle {
+    font-size: 16px;
+    color: var(--wire-text-secondary);
+  }
+
+  .founders-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .founder-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    align-items: start;
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+  }
+
+  .founder-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+  }
+
+  .founder-info h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .founder-info .role {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--wire-text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .founder-info p {
+    font-size: 14px;
+    color: var(--wire-text-secondary);
+    line-height: 1.65;
+  }
+
+
+  /* =============================
+     12. REVIEWS
+     ============================= */
+  .reviews {
+    padding: var(--section-pad);
+  }
+
+  .reviews .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .reviews h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .reviews .stars {
+    font-size: 24px;
+    color: var(--wire-accent);
+    margin-bottom: 8px;
+  }
+
+  .reviews .review-count {
+    font-size: 14px;
+    color: var(--wire-text-secondary);
+  }
+
+  .reviews-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .review-card {
+    background: var(--wire-surface);
+    padding: 28px;
+    border-radius: 12px;
+  }
+
+  .review-card .review-stars {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: var(--wire-accent);
+  }
+
+  .review-card p {
+    font-size: 14px;
+    color: var(--wire-text-secondary);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .review-card .reviewer {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--wire-text);
+  }
+
+  .review-card .verified {
+    font-size: 11px;
+    color: var(--wire-text-secondary);
+    font-weight: 400;
+  }
+
+
+  /* =============================
+     13. FAQ
+     ============================= */
+  .faq {
+    background: var(--wire-surface);
+    padding: var(--section-pad);
+  }
+
+  .faq .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .faq h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--wire-surface-alt);
+    background: white;
+  }
+
+  .faq-item:first-child {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .faq-item:last-child {
+    border-radius: 0 0 12px 12px;
+    border-bottom: none;
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--wire-text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inherit;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--wire-text-secondary);
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.2s;
+  }
+
+  .faq-item.open .faq-question::after {
+    content: '−';
+  }
+
+  .faq-answer {
+    padding: 0 24px 20px;
+    font-size: 14px;
+    color: var(--wire-text-secondary);
+    line-height: 1.7;
+    display: none;
+  }
+
+  .faq-item.open .faq-answer {
+    display: block;
+  }
+
+
+  /* =============================
+     14. EMAIL CAPTURE / CTA
+     ============================= */
+  .email-capture {
+    padding: var(--section-pad);
+    text-align: center;
+  }
+
+  .email-capture-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .email-capture h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .email-capture p {
+    font-size: 16px;
+    color: var(--wire-text-secondary);
+    margin-bottom: 28px;
+  }
+
+  .email-form {
+    display: flex;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .email-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid var(--wire-border);
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .email-form input:focus {
+    border-color: var(--wire-text);
+  }
+
+  .email-form .btn-primary {
+    white-space: nowrap;
+    padding: 14px 28px;
+  }
+
+  .email-note {
+    font-size: 12px;
+    color: var(--wire-text-secondary);
+    margin-top: 12px;
+  }
+
+
+  /* =============================
+     15. FOOTER
+     ============================= */
+  .footer {
+    background: var(--wire-dark);
+    color: var(--wire-dark-text);
+    padding: 56px 24px 32px;
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand p {
+    font-size: 14px;
+    opacity: 0.6;
+    line-height: 1.65;
+    margin-top: 12px;
+    max-width: 280px;
+  }
+
+  .footer h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .footer ul {
+    list-style: none;
+  }
+
+  .footer ul li {
+    margin-bottom: 10px;
+  }
+
+  .footer ul a {
+    color: var(--wire-dark-text);
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .footer ul a:hover { opacity: 1; }
+
+  .footer-bottom {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    opacity: 0.5;
+  }
+
+  .payment-icons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .payment-icon {
+    width: 40px;
+    height: 26px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+  }
+
+
+  /* =============================
+     RESPONSIVE
+     ============================= */
+  @media (max-width: 1024px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 40px 24px 56px;
+    }
+    .hero-content { max-width: 100%; }
+    .hero h1 { font-size: 40px; }
+    .hero-image { max-width: 500px; margin: 0 auto; }
+
+    .curly-section {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .curly-image { max-width: 500px; margin: 0 auto; order: -1; }
+
+    .founders-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 34px; }
+    .hero-sub { font-size: 16px; }
+
+    .trust-bar-inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 16px;
+    }
+
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .products-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .reviews-grid { grid-template-columns: 1fr; max-width: 400px; }
+
+    .comparison-table { grid-template-columns: 1fr; }
+    .comparison-col.ssl { border-left: none; border-top: 1px solid var(--wire-surface-alt); }
+
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 13px; }
+
+    .the-moment h2,
+    .how-it-works h2,
+    .curly-content h2,
+    .products h2,
+    .the-maths h2,
+    .founders h2,
+    .reviews h2,
+    .faq h2,
+    .email-capture h2 {
+      font-size: 28px;
+    }
+
+    .email-form { flex-direction: column; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 28px; }
+    .hero-ctas { flex-direction: column; align-items: stretch; }
+    .steps-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+    .ugc-video-card { flex: 0 0 170px; }
+    .founder-card { grid-template-columns: 1fr; text-align: center; }
+    .founder-photo { max-width: 160px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============================
+       1. ANNOUNCEMENT BAR
+       ============================ -->
+  <div class="announcement-bar">
+    <span class="wire-label" style="margin-bottom:0">Section 1</span>
+    &nbsp; Free shipping Australia-wide <span>|</span> Your kit lasts 12–18 months
+  </div>
+
+
+  <!-- ============================
+       2. NAVIGATION
+       ============================ -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <span class="wire-label" style="margin-bottom:0">Logo</span>
+      &nbsp; SHORT STORY LONG
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#founders">Our Story</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li>
+        <a href="#" class="nav-cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- ============================
+       3. HERO
+       ============================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="wire-label">Section 3 — Hero</span>
+      <div class="hero-eyebrow">Designed by a hairdresser with 30 years experience</div>
+      <h1>Salon hair.<br>Zero salon bill.</h1>
+      <p class="hero-sub">Professional-grade DIY tape extensions designed by two founders with 40 years of combined hair industry experience. Apply at home in under 30 minutes. Reuse for 12–18 months. From $468.</p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn-primary">Shop the Kits</a>
+        <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+      </div>
+      <p class="wire-note">Headline TBD — "Salon hair. Zero salon bill." is from playbook. Brand files will set final tone.</p>
+    </div>
+    <div class="hero-image placeholder">
+      <div class="placeholder-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Hero Image</span>
+        <span style="font-size:11px;opacity:0.6">Lifestyle / transformation shot<br>Aspirational, real, warm</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       4. UGC VIDEO SECTION (Bunny Stream)
+       ============================ -->
+  <section class="ugc-section">
+    <div class="section-header">
+      <span class="wire-label">Section 4 — UGC Videos (Bunny Stream)</span>
+      <h2>Real women. Real hair. Real results.</h2>
+      <p class="subtitle">See what our community is saying</p>
+    </div>
+    <div class="ugc-scroll-track">
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 1<br>Thumbnail → Bunny Stream</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 2<br>Curly hair transformation</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 3<br>First-time application</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 4<br>Before/after reveal</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 5<br>Tutorial / how-to</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 6<br>Customer testimonial</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 7<br>Lifestyle / going out</div>
+      </div>
+      <div class="ugc-video-card placeholder">
+        <div class="play-btn"></div>
+        <div class="ugc-caption">UGC Video 8<br>Removal & re-tape</div>
+      </div>
+    </div>
+    <p class="wire-note" style="text-align:center;margin-top:16px">Horizontal scroll, 9:16 portrait cards. Thumbnail facade pattern — video loads from Bunny Stream on click. Overlay modal or inline expand TBD.</p>
+  </section>
+
+
+  <!-- ============================
+       5. TRUST BAR
+       ============================ -->
+  <section class="trust-bar">
+    <span class="wire-label" style="display:block;text-align:center">Section 5 — Trust Bar</span>
+    <div class="trust-bar-inner">
+      <div class="trust-item">
+        <div class="trust-icon">✂️</div>
+        <h4>Designed by a Pro</h4>
+        <p>Created by a hairdresser with 30 years of experience</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💰</div>
+        <h4>Save Up to $3,500/yr</h4>
+        <p>One kit replaces thousands in salon visits</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🌀</div>
+        <h4>Curly Kits Available</h4>
+        <p>Australia's only DIY curly hair extension kit</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔄</div>
+        <h4>Reusable 12–18 Months</h4>
+        <p>Remove, wash, re-tape and go again</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       6. "THE MOMENT" SECTION
+       ============================ -->
+  <section class="the-moment">
+    <span class="wire-label">Section 6 — The Moment (Brand Story)</span>
+    <h2>We call it "the moment."</h2>
+    <p>The moment a woman sees herself with a full, gorgeous head of extensions. The confidence that floods in. The way she sits up straighter. The smile that just won't quit.</p>
+    <p>We've watched it happen thousands of times across 40 years in the hair industry. And we've watched just as many women miss it entirely — because the cost of salon extensions put it out of reach.</p>
+    <div class="moment-quote">"$3,000–$4,000 a year is the price of having the hair you want. For too many women, that price means the moment never happens at all."</div>
+    <p>So we built something better. One kit. From $468. Salon-quality hair, without the salon bill.</p>
+    <p class="wire-note">This section replaces Muse's "Shark Tank" credibility play. SSL leads with emotional storytelling + professional authority instead.</p>
+  </section>
+
+
+  <!-- ============================
+       7. HOW IT WORKS
+       ============================ -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-header">
+      <span class="wire-label">Section 7 — How It Works</span>
+      <h2>Long hair in four ridiculously easy steps.</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-image placeholder">
+          <div class="placeholder-inner">
+            <span>Step Image</span>
+            <span style="font-size:11px;opacity:0.6">Choosing a kit</span>
+          </div>
+        </div>
+        <div class="step-number">1</div>
+        <h3>Choose your kit</h3>
+        <p>Pick your length (16", 20" or 24") and whether you're after straight/wavy or curly. Not sure? We're a phone call away.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-image placeholder">
+          <div class="placeholder-inner">
+            <span>Step Image</span>
+            <span style="font-size:11px;opacity:0.6">Taping a weft</span>
+          </div>
+        </div>
+        <div class="step-number">2</div>
+        <h3>Tape it up</h3>
+        <p>Apply your new extensions using our included double-sided extension tape. Takes about 25 minutes all up.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-image placeholder">
+          <div class="placeholder-inner">
+            <span>Step Image</span>
+            <span style="font-size:11px;opacity:0.6">Pressing in weft</span>
+          </div>
+        </div>
+        <div class="step-number">3</div>
+        <h3>Press down, let down</h3>
+        <p>Section your hair, press in each weft close to the roots, and let your natural hair fall over them. That's it. Go be gorgeous.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-image placeholder">
+          <div class="placeholder-inner">
+            <span>Step Image</span>
+            <span style="font-size:11px;opacity:0.6">Removal spray</span>
+          </div>
+        </div>
+        <div class="step-number">4</div>
+        <h3>Remove, wash, repeat</h3>
+        <p>Every 3–4 weeks, use the included removal spray, wash, re-tape, and go again. Your kit lasts 12–18 months.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       8. CURLY SECTION
+       ============================ -->
+  <section class="curly-section">
+    <div class="curly-image placeholder">
+      <div class="placeholder-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Curly Hair Hero Image</span>
+        <span style="font-size:11px;opacity:0.6">Bold, beautiful curly<br>transformation shot</span>
+      </div>
+    </div>
+    <div class="curly-content">
+      <span class="wire-label">Section 8 — Curly (Blue Ocean)</span>
+      <div class="badge">Australia's Only</div>
+      <h2>Finally. Extensions for curly hair.</h2>
+      <p>If you've got curls, you already know the struggle. Every extension kit on the market is designed for straight hair. They don't blend. They don't match. They just... don't work.</p>
+      <p>Short Story Long is the only DIY extension brand in Australia to offer a curly hair kit. Our curly wefts are designed to move, blend, and behave exactly like your natural texture — because they were developed by two founders who've spent 40 years working with every hair type imaginable.</p>
+      <p><strong>Your curls deserve length too.</strong></p>
+      <a href="#products" class="btn-primary">Shop Curly Kits</a>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       9. PRODUCT SHOWCASE
+       ============================ -->
+  <section class="products" id="products">
+    <div class="section-header">
+      <span class="wire-label">Section 9 — Product Showcase</span>
+      <h2>Choose your kit.</h2>
+      <p class="subtitle">Everything you need. Nothing you don't. Each kit includes 12 professionally selected wefts, re-application tape, and removal spray.</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-image placeholder">
+          <div class="placeholder-inner">
+            <span>Product Photo</span>
+            <span style="font-size:11px;opacity:0.6">24" Kit — The Statement</span>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">24 Inch</div>
+          <h3>The Statement</h3>
+          <div class="tagline">Maximum length. Maximum volume. Maximum impact.</div>
+          <div class="product-specs">
+            <span class="spec-tag">12 wefts</span>
+            <span class="spec-tag">150g</span>
+            <span class="spec-tag">12–18 months</span>
+          </div>
+          <div class="price"><span class="from">From </span>$698</div>
+          <a href="#" class="btn-primary">Shop The Statement</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image placeholder">
+          <div class="placeholder-inner">
+            <span>Product Photo</span>
+            <span style="font-size:11px;opacity:0.6">20" Kit — The Sweet Spot</span>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">20 Inch</div>
+          <h3>The Sweet Spot</h3>
+          <div class="tagline">Long enough to turn heads. Light enough to forget you're wearing it.</div>
+          <div class="product-specs">
+            <span class="spec-tag">12 wefts</span>
+            <span class="spec-tag">130g</span>
+            <span class="spec-tag">12–18 months</span>
+          </div>
+          <div class="price"><span class="from">From </span>$599</div>
+          <a href="#" class="btn-primary">Shop The Sweet Spot</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image placeholder">
+          <div class="placeholder-inner">
+            <span>Product Photo</span>
+            <span style="font-size:11px;opacity:0.6">16" Kit — The Natural</span>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">16 Inch</div>
+          <h3>The Natural</h3>
+          <div class="tagline">Subtle. Blendable. Beautiful. Nobody will know how you did it.</div>
+          <div class="product-specs">
+            <span class="spec-tag">12 wefts</span>
+            <span class="spec-tag">120g</span>
+            <span class="spec-tag">12–18 months</span>
+          </div>
+          <div class="price"><span class="from">From </span>$468</div>
+          <a href="#" class="btn-primary">Shop The Natural</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="wire-note" style="text-align:center;margin-top:24px">Each card: straight/wavy + curly variants TBD. 12 wefts vs Muse's 7 — call this out visually. Colour swatches below product image when brand photos available.</p>
+  </section>
+
+
+  <!-- ============================
+       10. THE MATHS
+       ============================ -->
+  <section class="the-maths">
+    <div class="section-header">
+      <span class="wire-label">Section 10 — The Maths</span>
+      <h2>We did the maths so you don't have to.</h2>
+      <p class="subtitle">Here's what salon extensions actually cost — and what you'll save with Short Story Long.</p>
+    </div>
+    <div class="comparison-table">
+      <div class="comparison-col salon">
+        <h3>Salon Extensions (Per Year)</h3>
+        <div class="comp-line"><span>Initial install</span><span>~$2,000+</span></div>
+        <div class="comp-line"><span>8× maintenance @ ~$200</span><span>$1,600</span></div>
+        <div class="comp-line"><span>Products & upkeep</span><span>~$200</span></div>
+        <div class="comp-total"><span>Total per year</span><span>$3,500–$4,000</span></div>
+      </div>
+      <div class="comparison-col ssl">
+        <h3>Short Story Long</h3>
+        <div class="comp-line"><span>One kit (lasts 12–18 months)</span><span>$468–$698</span></div>
+        <div class="comp-line"><span>Re-tape rolls (optional)</span><span>~$30</span></div>
+        <div class="comp-line"><span>That's it. Seriously.</span><span></span></div>
+        <div class="comp-total"><span>Total</span><span>Under $730</span></div>
+      </div>
+    </div>
+    <div class="savings-callout">
+      <div class="amount">Save up to $3,270 per year</div>
+      <p>Same hair. Same confidence. A fraction of the cost.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       11. FOUNDERS
+       ============================ -->
+  <section class="founders" id="founders">
+    <div class="section-header">
+      <span class="wire-label">Section 11 — Founders</span>
+      <h2>Built by two women with 40 years of hair industry experience between them.</h2>
+      <p class="subtitle">This isn't a product made by a marketing team. It's a product made by two people who know hair inside out.</p>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="founder-photo placeholder">
+          <div class="placeholder-inner">
+            <span>Photo</span>
+            <span style="font-size:11px;opacity:0.6">Leah</span>
+          </div>
+        </div>
+        <div class="founder-info">
+          <h3>Leah</h3>
+          <div class="role">Co-Founder · 30 Years in Hair</div>
+          <p>Every weft width, gram weight, tape formula, and removal spray in your kit came from Leah's three decades of professional hairdressing experience. She's done over ten thousand extension installs. She knows what works.</p>
+        </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-photo placeholder">
+          <div class="placeholder-inner">
+            <span>Photo</span>
+            <span style="font-size:11px;opacity:0.6">Nehara</span>
+          </div>
+        </div>
+        <div class="founder-info">
+          <h3>Nehara Shai</h3>
+          <div class="role">Co-Founder · Salon Owner, NSW Coast</div>
+          <p>Nehara knows what clients actually want, what they worry about, and what makes the difference between a product people use once and one they love for life. She built Short Story Long so cost is never the reason you can't have the hair you want.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       12. REVIEWS
+       ============================ -->
+  <section class="reviews">
+    <div class="section-header">
+      <span class="wire-label">Section 12 — Reviews (Loox / Judge.me placeholder)</span>
+      <div class="stars">★★★★★</div>
+      <h2>What our customers are saying</h2>
+      <p class="review-count">Powered by Loox / Judge.me — auto-populated from Shopify</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Placeholder review — these will auto-populate from the Shopify review app once customers start purchasing."</p>
+        <div class="reviewer">Customer Name <span class="verified">· Verified Buyer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Placeholder review — curly kit testimonial would be ideal here to reinforce the differentiator."</p>
+        <div class="reviewer">Customer Name <span class="verified">· Verified Buyer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Placeholder review — cost savings angle. 'I used to spend $X at the salon and now I do it at home in 25 minutes.'"</p>
+        <div class="reviewer">Customer Name <span class="verified">· Verified Buyer</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       13. FAQ
+       ============================ -->
+  <section class="faq" id="faq">
+    <div class="section-header">
+      <span class="wire-label">Section 13 — FAQ (Accordion)</span>
+      <h2>Got questions? We've got answers.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-question">How long does it take to apply?</button>
+        <div class="faq-answer">About 25 minutes for a full head. Most people get faster with practice — some of our customers are down to 15 minutes. We include a step-by-step guide and video tutorial with every kit.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How long does a kit last?</button>
+        <div class="faq-answer">With proper care, your Short Story Long kit lasts 12–18 months. You'll re-tape every 3–4 weeks, which takes about 10 minutes. Each kit includes tape and removal spray to get you started.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Will it work with my hair type?</button>
+        <div class="faq-answer">We offer kits for straight/wavy hair and curly hair — we're the only DIY extension brand in Australia with a curly kit. As long as you have enough natural hair to cover the tape tabs, our extensions will work beautifully. Not sure? Get in touch and we'll help you decide.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What's included in each kit?</button>
+        <div class="faq-answer">Every kit includes 12 professionally selected wefts in graduated widths (from 5cm to 20cm), double-sided extension tape for re-application, and removal spray. Everything you need — nothing you don't.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How is this different from salon extensions?</button>
+        <div class="faq-answer">The hair quality is the same — 100% Remy human hair, professionally selected and designed by our co-founder Leah, who has 30 years of hairdressing experience. The difference is you apply it yourself at home, saving $3,000+ per year in salon costs.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can I colour or heat style the extensions?</button>
+        <div class="faq-answer">Yes! Our extensions are 100% Remy human hair, so you can wash, blow-dry, curl, straighten, and even colour them just like your natural hair. We recommend using heat protectant to maximise their lifespan.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What's your return policy?</button>
+        <div class="faq-answer">We want you to love your hair. If you're not happy, contact us within 14 days of receiving your kit — we'll make it right. See our full returns policy for details.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How do I choose the right colour?</button>
+        <div class="faq-answer">We're building a colour matching service — send us a photo of your hair in natural light and we'll recommend the perfect shade. Email us or DM on Instagram.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       14. EMAIL CAPTURE
+       ============================ -->
+  <section class="email-capture">
+    <div class="email-capture-inner">
+      <span class="wire-label">Section 14 — Email Capture (Klaviyo)</span>
+      <h2>Join the movement.</h2>
+      <p>Be the first to hear about new shades, exclusive offers, and real transformation stories from our community.</p>
+      <div class="email-form">
+        <input type="email" placeholder="Your email address">
+        <button class="btn-primary">Join</button>
+      </div>
+      <p class="email-note">No spam. Just great hair. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       15. FOOTER
+       ============================ -->
+  <footer class="footer">
+    <span class="wire-label">Section 15 — Footer</span>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="font-size:18px;font-weight:800;margin-bottom:4px;">SHORT STORY LONG</div>
+        <p>DIY tape hair extensions designed by two founders with 40 years of combined hair industry experience. Salon hair, without the salon bill.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">The Statement (24")</a></li>
+          <li><a href="#">The Sweet Spot (20")</a></li>
+          <li><a href="#">The Natural (16")</a></li>
+          <li><a href="#">Curly Kits</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Colour Matching</a></li>
+          <li><a href="#">Care Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Short Story Long. All rights reserved.</span>
+      <div class="payment-icons">
+        <div class="payment-icon">VISA</div>
+        <div class="payment-icon">MC</div>
+        <div class="payment-icon">AMEX</div>
+        <div class="payment-icon">APAY</div>
+        <div class="payment-icon">GPAY</div>
+        <div class="payment-icon">PPAY</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- FAQ Accordion Script -->
+  <script>
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
